@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gigstreem Employee</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #f0f2f5; }
+        .app { max-width: 480px; margin: 0 auto; height: 100vh; background: white; display: flex; flex-direction: column; }
+        .header { background: #25D366; color: white; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 20px; font-weight: 500; }
+        .theme-toggle { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+        .search-container { padding: 12px 16px; background: #f0f2f5; }
+        .search-input { width: 100%; padding: 12px 16px; border: none; border-radius: 20px; font-size: 15px; outline: none; }
+        .employee-list { flex: 1; overflow-y: auto; background: #f0f2f5; }
+        .employee-card { display: flex; align-items: center; padding: 12px 16px; background: white; border-bottom: 1px solid #e9edef; cursor: pointer; }
+        .employee-card:hover { background: #f5f6f6; }
+        .avatar { width: 48px; height: 48px; border-radius: 50%; background: #25D366; display: flex; align-items: center; justify-content: center; color: white; font-weight: 500; font-size: 18px; margin-right: 12px; }
+        .employee-info { flex: 1; }
+        .employee-name { font-weight: 500; font-size: 16px; margin-bottom: 2px; }
+        .employee-title { font-size: 14px; color: #667781; margin-bottom: 2px; }
+        .employee-location { font-size: 13px; color: #667781; }
+        .no-results { text-align: center; padding: 40px 20px; color: #667781; }
+        .dark { background: #111b21; color: #e9edef; }
+        .dark .app { background: #202c33; }
+        .dark .search-container { background: #111b21; }
+        .dark .search-input { background: #2a3942; color: #e9edef; }
+        .dark .employee-list { background: #111b21; }
+        .dark .employee-card { background: #202c33; border-color: #2a3942; }
+        .dark .employee-card:hover { background: #2a3942; }
+    </style>
+</head>
+<body class="dark">
+    <div class="app">
+        <header class="header">
+            <h1>Gigstreem Employee</h1>
+            <button class="theme-toggle" onclick="toggleTheme()">☀️</button>
+        </header>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search employees..." oninput="filterEmployees(this.value)">
+        </div>
+        <div class="employee-list" id="employeeList">
+            <div class="no-results">Loading employees...</div>
+        </div>
+    </div>
+
+    <script>
+const e=[{Name:'John Smith','Job Title':'Software Engineer',Location:'New York, NY'},{Name:'Sarah Johnson','Job Title':'Product Manager',Location:'San Francisco, CA'},{Name:'Mike Chen','Job Title':'UX Designer',Location:'Seattle, WA'},{Name:'Emily Davis','Job Title':'Data Analyst',Location:'Austin, TX'},{Name:'David Wilson','Job Title':'DevOps Engineer',Location:'Denver, CO'},{Name:'Lisa Brown','Job Title':'Marketing Manager',Location:'Chicago, IL'},{Name:'Alex Rodriguez','Job Title':'Sales Representative',Location:'Miami, FL'},{Name:'Jennifer Lee','Job Title':'HR Specialist',Location:'Portland, OR'},{Name:'Robert Taylor','Job Title':'Backend Developer',Location:'Boston, MA'},{Name:'Amanda White','Job Title':'Frontend Developer',Location:'Los Angeles, CA'}];let a=[],d=true;function g(n){return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}function c(emp){return`<div class="employee-card"><div class="avatar">${g(emp['Contact Name']||emp.Name||'N/A')}</div><div class="employee-info"><div class="employee-name">${emp['Contact Name']||emp.Name||'Unknown'}</div><div class="employee-title">${emp['Job Title']||'N/A'}</div><div class="employee-location">${emp.Location||'N/A'}</div></div></div>`}function r(l){const x=document.getElementById('employeeList');x.innerHTML=l.length===0?'<div class="no-results">No employees found</div>':l.map(c).join('')}function f(s){if(!s.trim()){r(a);return}const fl=a.filter(emp=>(emp['Contact Name']||emp.Name||'').toLowerCase().includes(s.toLowerCase())||emp['Job Title'].toLowerCase().includes(s.toLowerCase())||emp.Location.toLowerCase().includes(s.toLowerCase()));r(fl)}function toggleTheme(){d=!d;document.body.classList.toggle('dark',d);document.querySelector('.theme-toggle').textContent=d?'☀️':'🌙'}function l(){a=e;r(a)}
+
+l();
+    </script>
+</body>
+</html>
